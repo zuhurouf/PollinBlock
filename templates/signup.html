@@ -1,0 +1,82 @@
+<!DOCTUPE html>
+<html lang="en" dir="ltr">
+	<head>
+	   <meta charset="utf-8">
+	   <title>PollinBlock</title>
+	   <meta name="viewport" role="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<style>
+			.container .row .col-lg-6 form
+			{
+				padding: 10px;
+				background-color: #0f3041;
+				margin-left: 70px;
+			}
+			.container .row .col-lg-6 form input
+			{
+				margin-top: 10px;
+				margin-left: 100px;
+			}
+			.container .row .col-lg-6 form input[type=text], [type=password], [type=email]
+			{
+				border: none;
+				border-bottom: 2px solid #f2f2f2;
+				background-color: #0f3041;
+				color: #f2f2f2;
+			}
+			::placeholder{	color: #f2f2f2;}
+			input:focus{	color: #f2f2f2; }
+			.container .row .col-lg-6 form input[type=submit]
+			{
+				border: none;
+				border-radius: 7px;
+				padding: 5px 15px;
+				color: #f2f2f2;
+				background-color: red;
+				margin-left: 150px;
+			}
+		</style>
+		<script>
+			function passwordVerification()
+			{
+				pwd1 = document.getElementsByName("pwd").values;
+				pwd2 = document.getElementsByName("cpwd").values;
+				if(pwd1 != pwd2)
+				{
+					alert("Password not matching");
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		</script>
+	</head>
+	<body style="background-color: #f2f2f2; font-family: Cochin;">
+		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0f3041;">
+            <div class="container-fluid">
+                <h3 style="color: whitesmoke; margin-left: 15px; margin-top: 7px;">PiB</h3>
+            </div>
+        </nav><br/><br/><br/>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-6">
+					<form action="/signedup"  method="POST" style="width: 400px; height: 380px;">
+						<h3 style="color: #f2f2f2; margin-left: 140px;">Signup</h3>
+						<input type="text" name="volunteer_id" placeholder="Employee ID" required/><br/><br/>
+						<input type="text" name="name" placeholder="Name" required/><br/><br/>
+						<input type="password" id="pwd" name="pwd" placeholder="Password" required/><br/><br/>
+						<input type="password" id="cpwd" name="cpwd" placeholder="Confirm password" required/><br/><br/>
+						<input type="submit" value="Signup" name="signupbtn" placeholder="Signup" onclick="passwordVerification()"/>
+					</form>
+				</div>
+				<div class="col-lg-3"></div>
+			</div>
+		</div>
+	</body>
+</html>

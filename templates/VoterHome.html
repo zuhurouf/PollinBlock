@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PollinBlock</title>
+        <meta lang="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="tabulator.css">
+        <script src="tabulator.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            body
+            {
+                background-color: #f2f2f2;
+                font-family: Cochin;
+                font-style: normal;
+            }
+
+
+            .navbar .container-fluid input[type=button]
+            {
+                border: none;
+                color: #f2f2f2;
+                background-color: red;
+                padding: 5px 8px;
+            }
+
+            
+            .container .r1 .col-lg-4 .wallet
+            {
+                background-color: #0f3041;
+                color: #f2f2f2;
+                border-radius: 5px;
+                padding: 10px;
+                width: 1100px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0f3041;">
+            <div class="container-fluid">
+                <h3 style="color: whitesmoke;">PiB</h3>
+                <a href="{{ url_for('logout') }}">
+                    <input type="button" value="Logout"/>
+              </a>
+            </div>
+        </nav><br/><br/><br/>
+        <div class="container">
+            <div class="row r1">
+                <div class="col-lg-4">
+                    <div class="wallet">
+                        <h5>Your wallet</h5>
+                        <label>Public Key:</label>  
+                        <p>{{ wallet.Public_key }}</p>
+                        <label>Private Key:</label>   
+                        <p>{{ wallet.Private_key }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-8"></div>
+            <br/>
+            <div class="row r2"></div>
+            <div class="row r3">
+                <div class="col-lg-3">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="col-lg-9">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>      </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidate in candidates %}
+                            <tr>
+                                <form action="{{ url_for('new_transaction_voter') }}" method="POST">
+                                    <td>{{ candidate.Name }}</td>
+                                    <td><input type="hidden" name="cand_name" value={{candidate.Name}}/></td>
+                                    <td><input type="hidden" name="pub_key" value={{candidate.Public_key}}/></td>
+                                    <td><input type="submit" value="Vote" style="border: none; border-radius: 5px;
+                                                                                 background-color: red; color: #f2f2f2;
+                                                                                 padding: 5px 10px"/></td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </body>
+</html>

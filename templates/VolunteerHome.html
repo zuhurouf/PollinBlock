@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+      <head>
+            <meta lang="utf-8">
+            <title>PollinBlock</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      </head> 
+      <style>
+            body
+            {
+                  background-color: #f2f2f2;
+                  font-family: Cochin;
+                  font-style: normal;
+            }
+
+
+            .navbar .container-fluid a button
+            {
+                  padding: 5px 5px;
+                  border: none;
+                  border-radius: 7px;
+                  background-color: red;
+                  color: #f2f2f2;
+            }
+            .navbar .container-fluid input[type=button]
+            {
+                  background-color: red;
+                  color: #f2f2f2;
+                  border: none;
+                  padding: 1px 10px;
+            }
+            .navbar .container-fluid .nav_btn
+            {
+                  position: relative;
+                  right: 230px;
+            }
+            .container-fluid .r1 .col-lg-10 .wallet
+            {
+                  padding: 10px;
+                  background-color: #0f3041;
+                  color: #f2f2f2;
+                  margin-top: 10px;
+                  width: 1100px;
+                  border-radius: 10px;
+            }
+            .container-fluid .r2 .col-lg-5 .candidate_list tbody tr td input[type=submit]
+            {
+                  border: none;
+                  border-radius: 7px;
+                  background-color: red;
+                  color: #f2f2f2;
+                  padding: 3px 8px;
+            } 
+
+
+            .container form
+            {
+                  border-radius: 5px;
+                  margin-top: 50px;
+                  margin-left: 250px;
+                  background-color: #0f3041;
+                  width: 500px;
+                  padding: 15px;
+                  color: #f2f2f2;
+                  align-items: center;
+            }
+
+            .container form .form-group h4, input[type=text]
+            {
+                  margin-left: 150px;
+            }
+
+            .container form .form-group input[type=text]
+            {
+                  border: none;
+                  border-bottom: 2px solid #f2f2f2;
+                  background-color: #0f3041;
+                  color: grey;
+                  width: 200px;
+            }
+
+            .container form .form-group input[type=submit]
+            {
+                  border: none;
+                  background-color: red;
+                  color: #f2f2f2;
+                  padding: 4px 10px;
+                  margin-left: 230px;
+            }
+      </style> 
+      <body>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0f3041;">
+                  <div class="container-fluid">
+                        <h3 style="color: whitesmoke;">PiB</h3>
+                        <a href="{{ url_for('result') }}">
+                              <input type="button" id="rslt_btn" style="margin-left: 1000px;" value="Result">
+                        </a>
+                        <a href="{{ url_for('logout') }}">
+                              <input type="button" value="Logout"/>
+                        </a>
+                  </div>
+            </nav>
+            <div id="dashboard" class="container-fluid" style="display: block;">
+                  <div class="row r1">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                              <div class="wallet">
+                                    <h4>Your wallet</h4>
+                                    <label for="public_key">Public Key: </label>
+                                    <p>{{ wallet.Public_key }}</p>
+                                    <label for="private_key">Private Key:</label>
+                                    <p>{{ wallet.Private_key }}</p>
+                              </div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                  </div>
+                  <div class="row r2">
+                        <div class="col-lg-1">
+                              {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                          {% for message in messages %}
+                                                {{ message }}
+                                          {% endfor %}
+                                    {% endif %}
+                              {% endwith %}
+                        </div>
+                        <div class="col-lg-5 poll_list">
+                              <label><b>Candidate list</b></label>
+                              <table class="table table-striped">
+                                    <thead>
+                                          <tr>
+                                                <th>Candidate</th>
+                                                <th>         </th>
+                                                <th>         </th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for candidate in candidates %}
+                                          <tr>
+                                                <form action="{{ url_for('new_transaction_volunteer') }}" method="POST">
+                                                      <td>{{ candidate.Name }}</td>
+                                                      <td><input type="hidden" name="cand_name" value={{candidate.Name}}/></td>
+                                                      <td><input type="hidden" name="pub_key" value={{candidate.Public_key}}/></td>
+                                                      <td><input type="submit" name="vote_btn" value="Vote" style="border: none;
+                                                                                                                   border-radius: 7px;
+                                                                                                                   background-color: red;
+                                                                                                                   color: #f2f2f2;
+                                                                                                                   padding: 4px 12px;"/></td>
+                                                </form>
+                                          </tr>
+                                    {% endfor %}
+                                    </tbody>
+                              </table>
+                        </div>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-5 result">
+                              <label><b>Result</b></label>
+                              <table class="table table-striped">
+                                    <thead>
+                                          <tr>
+                                                <th>Candidate</th>
+                                                <th>Count</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                          {% for candidate in result %}
+                                          <tr>
+                                                <td>{{ candidate.Name }}</td>
+                                                <td>{{ candidate.Count }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                    </tbody>
+                              </table>
+                        </div>
+                  </div>
+            </div>
+      </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta lang="utf-8">
+        <title>PollinBlock</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            .navbar .container-fluid h3
+            {
+                font-family: Cochin;
+                font-style: normal;
+            }
+            .container .row .col-lg-5
+            {
+                background-color: #0f3041;
+            }
+            .container .row .col-lg-5 h3, h5
+            {
+                color: whitesmoke;
+                margin-top: 5px;
+                margin-left: 180px;
+            }
+            .container .row .col-lg-5 input[type=text], [type=password]
+            {
+                color: #f2f2f2;
+                border: none;
+                border-bottom: 2px solid #f2f2f2;
+                background-color: #0f3041;
+                margin-top: 20px;
+                margin-left: 130px;
+            }
+            ::placeholder   {color: gray;}
+            .container .row .col-lg-5 input[type=button], [type=submit]
+            {
+                padding: 5px 20px;
+                border: none;
+                border-radius: 7px;
+                background-color: red;
+                color: #f2f2f2;
+                margin-left: 130px;
+            }
+            .container .row .col-lg-5 input[type=text]:focus
+            {
+                color: #f2f2f2;
+            }
+        </style>
+
+    </head>
+    <body style="background-color: #f2f2f2; font-family: Cochin;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0f3041;">
+            <div class="container-fluid">
+                <h3 style="color: whitesmoke;">PiB</h3>
+            </div>
+        </nav><br/><br/><br/>
+        {% with messages = get_flashed_messages() %}  
+         {% if messages %}  
+               {% for message in messages %}  
+                    <p>{{ message }}</p>  
+               {% endfor %}  
+         {% endif %}  
+        {% endwith %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <h3>Voter</h3>
+                    <h5 style="margin-left: 190px;">Login</h5>
+                    <form id="voter_form" action="{{ url_for('voter_login') }}" method="POST">
+                        <input type="text" name="voter_id" id="voter_id" placeholder="Voter ID" required/><br/><br/>
+                        <input type="text" name="DOB" id="dob" placeholder="Date of Birth" required/><br/><br/>
+                        <input type="submit" id="votloginbtn" name="votlognbtn" value="Login" style="margin-bottom: 10px; margin-left: 170px;"/>
+                    </form>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-5">
+                    <h3 style="margin-left: 90px;">Election volunteer</h3>
+                    <h5>Login</h5>
+                    <form action="/volunteer_login" method="POST">
+                        <input type="text" name="volunteer_id" placeholder="Volunteer ID" required/><br/><br/>
+                        <input type="password" name="pwd" placeholder="Password" required/><br/><br/>
+                        <input type="submit" id="volloginbtn" name="vollognbtn" value="Login" style="margin-bottom: 10px; margin-left: 170px;"/>
+                        <p style="color: #f2f2f2; margin-left: 150px;">New user? <a href="/signup">Signup</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function show_elem()
+            {
+                document.getElementById("otp_txt").hidden = false;
+                document.getElementById("otp_ver").hidden = false;
+
+            }
+        </script>
+    </body>
+</html>
+             
