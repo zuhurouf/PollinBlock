@@ -109,6 +109,7 @@ def signedup():
         flash('Account creation unsuccessful')
         return render_template('login.html')
 
+
 #logs into volunteer home page
 @app.route('/volunteer_login', methods=['POST'])
 def volunteer_login():
@@ -143,6 +144,7 @@ def volunteer_login():
         flash('Invalid ID')
         return render_template('login.html')
 
+
 #volunteer's new transaction
 @app.route('/new_transaction_volunteer', methods=['POST'])
 def new_transaction_volunteer():
@@ -167,8 +169,6 @@ def new_transaction_volunteer():
         return render_template('VolunteerHome.html', wallet= key, candidates= cand_lst, result= poll_result)
 
 
-
-
 #returns the final result
 @app.route('/result', methods=['POST', 'GET'])
 def result():
@@ -189,6 +189,7 @@ def logout():
     session.pop('public key', None)
     session.pop('private key', None)
     return render_template('login.html')
+
 
 if __name__ == '__main__':
     app.secret_key = 'secret key'
